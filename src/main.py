@@ -21,6 +21,7 @@ player_x = 100
 player_y = 100
 PLAYER_SPEED = 3
 
+
 # Create the window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Altimon")
@@ -47,6 +48,16 @@ while running:
         player_y -= PLAYER_SPEED
     if keys[pygame.K_DOWN]:
         player_y += PLAYER_SPEED
+
+    # Keep player inside screen boundaries
+    if player_x < 0:
+        player_x = 0
+    if player_x > SCREEN_WIDTH - 32:    # 32 = player width
+        player_x = SCREEN_WIDTH - 32
+    if player_y < 0:
+        player_y = 0
+    if player_y > SCREEN_HEIGHT - 32:   # 32 = player height
+        player_y = SCREEN_HEIGHT - 32
 
     #3. Draw Everything
     screen.fill(BLACK)
