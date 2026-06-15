@@ -39,8 +39,9 @@ teaches them the basics.
 - Function: Gives player their first Altimon, explains game mechanics
 
 ### Antagonist Faction
-- Name: TBD
+- Name: The Eclipse Order
 - Goal: Weaponize mind-controlled Altimons to destroy the world
+- Motivation: Pure power — they want to rule, and destruction is their leverage
 - Structure: Grunts → Scientists → Commander → Leader
 
 ## Altimon
