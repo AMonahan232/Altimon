@@ -50,6 +50,35 @@ teaches them the basics.
 - Type system: TBD
 - Starter Altimons: TBD
 
+## Starter Altimons
+
+### Ignarok (Fire)
+- Type: Fire
+- Appearance: Small bipedal creature with a charcoal-colored rocky 
+  body and a glowing molten core visible through cracks in its chest. 
+  Two small magma horns sit on its head. Its tail ends in a flame 
+  that changes color with its mood.
+- Personality Traits (randomized): Brave, Reckless, Hotheaded, 
+  Determined, Impulsive
+
+### Tidalyx (Water)
+- Type: Water
+- Appearance: Four-legged creature resembling a cross between a fox 
+  and a deep-sea fish. Translucent blue-white bioluminescent fur, 
+  flowing fin-like ears, and a tail that splits into three fluid 
+  tendrils. Large dark reflective eyes.
+- Personality Traits (randomized): Calm, Cautious, Mysterious, 
+  Loyal, Calculated
+
+### Sporven (Grass)
+- Type: Grass
+- Appearance: Slender bipedal mantis-like creature with deep forest 
+  green exoskeleton and bioluminescent vein patterns. Large scythe-like 
+  forearms that extend in battle. Crystalline comet fragments sprouting 
+  from its back. Compound eyes that glow amber.
+- Personality Traits (randomized): Patient, Cunning, Observant, 
+  Disciplined, Focused
+
 ## Core Gameplay Loop
 1. Explore island
 2. Encounter and capture wild Altimons
