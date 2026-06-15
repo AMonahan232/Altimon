@@ -12,6 +12,14 @@ FPS = 60
 # COLORS (R, G, B)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+GREEN = (34, 139, 34)
+BLUE = (70, 130, 180)
+RED = (200, 50, 50)
+
+#Player Starting Position
+player_x = 100
+player_y = 100
+PLAYER_SPEED = 3
 
 # Create the window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -30,9 +38,25 @@ while running:
             running = False
     
     #2. Update Gane Stats
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player_x -= PLAYER_SPEED
+    if keys[pygame.K_RIGHT]:
+        player_x += PLAYER_SPEED
+    if keys[pygame.K_UP]:
+        player_y -= PLAYER_SPEED
+    if keys[pygame.K_DOWN]:
+        player_y += PLAYER_SPEED
 
     #3. Draw Everything
     screen.fill(BLACK)
+
+    # Draw simple "Player" rectangle
+    pygame.draw.rect(screen, GREEN, (player_x, player_y, 32, 32))
+
+    # Draw simple "NPC" rectangle
+    pygame.draw.rect(screen, BLUE, (400, 300, 32, 32))
+
     pygame.display.flip()
 
     #4. Cap the Frame Rate
