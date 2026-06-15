@@ -79,6 +79,14 @@ teaches them the basics.
 - Personality Traits (randomized): Patient, Cunning, Observant, 
   Disciplined, Focused
 
+
+## Type System
+Uses the standard 18-type system:
+Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, 
+Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy
+
+Note: Type chart interactions are identical to standard RPG conventions.
+
 ## Core Gameplay Loop
 1. Explore island
 2. Encounter and capture wild Altimons
