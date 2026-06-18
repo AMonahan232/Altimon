@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 
 # Initialize pygame
 pygame.init()
@@ -21,6 +22,10 @@ player_x = 100
 player_y = 100
 PLAYER_SPEED = 3
 
+# Load player sprite
+player_image = pygame.image.load(
+    os.path.join("../assets/sprites/player.png")
+)
 
 # Create the window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -61,13 +66,7 @@ while running:
 
     #3. Draw Everything
     screen.fill(BLACK)
-
-    # Draw simple "Player" rectangle
-    pygame.draw.rect(screen, GREEN, (player_x, player_y, 32, 32))
-
-    # Draw simple "NPC" rectangle
-    pygame.draw.rect(screen, BLUE, (400, 300, 32, 32))
-
+    screen.blit(player_image, (player_x, player_y))
     pygame.display.flip()
 
     #4. Cap the Frame Rate
