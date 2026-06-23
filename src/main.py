@@ -1,6 +1,7 @@
 import pygame
 import sys
 from player import Player
+from tilemap import Tilemap
 
 
 # Initialize pygame
@@ -25,7 +26,8 @@ pygame.display.set_caption("Altimon")
 # Clock to control frame rate
 clock = pygame.time.Clock()
 
-#Create Player Object
+#Create Game Objects
+tilemap = Tilemap(tile_size=32)
 player = Player(x=100, y=100, name="Trainer")
 
 # Game Loop
@@ -44,6 +46,7 @@ while running:
 
     #3. Draw 
     screen.fill(BLACK)
+    tilemap.draw(screen)
     player.draw(screen)
     pygame.display.flip()
 
