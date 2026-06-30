@@ -1,7 +1,9 @@
 import pygame
 import sys
+import os
 from player import Player
 from tilemap import Tilemap
+
 
 
 # Initialize pygame
@@ -27,8 +29,10 @@ pygame.display.set_caption("Altimon")
 clock = pygame.time.Clock()
 
 #Create Game Objects
-tilemap = Tilemap(tile_size=32)
-player = Player(x=100, y=100, name="Trainer")
+tilemap = Tilemap(
+    map_path=os.path.join("../assets/maps/island1.csv"),
+    tile_size=32)
+player = Player(x=300, y=300, name="Trainer")
 
 # Game Loop
 running = True
@@ -41,7 +45,7 @@ while running:
     
     #2. Update Gane Stats
     keys = pygame.key.get_pressed()
-    player.handle_input(keys)
+    player.handle_input(keys, tilemap)
     player.apply_bounderies(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     #3. Draw 

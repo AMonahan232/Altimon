@@ -1,11 +1,14 @@
 import pygame
 import os
+import csv
 
 #Tile Type Constants
 GRASS = 0 
 WATER = 1
 SAND = 2
 
+#Tiles the player cannot walk on
+SOLID_TILES = [WATER]
 
 class Tilemap:
     """
@@ -13,9 +16,11 @@ class Tilemap:
     Each cell in the grid contains a tile type integer.
     """
 
-    def __init__(self, tile_size=32):
+    def __init__(self, map_path, tile_size=32):
         self.tile_size = tile_size
+        self.grid = []
 
+        #Load tile images
         self.tiles = {
             GRASS: pygame.image.load(
                 os.path.join("../assets/sprites/tile_grass.png")
@@ -28,29 +33,33 @@ class Tilemap:
             ),
         }
 
-        # The map — a 2D grid of tile type integers
-        # 0 = Grass, 1 = Water, 2 = Sand
-        self.grid = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 2, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 2, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ]
+        #Load map from csv
+        self.load_map(map_path)
+
+
+    def load_map(self, map_path):
+        """Read the CSV file and build the grid"""
+        self.grid = []
+        with open(map_path, "r", encoding="utf-8-sig") as file:
+            reader = csv.reader(file)
+            for row in reader:
+                self.grid.append([int(tile) for tile in row])
+    
+    def is_solid(self, grid_x, grid_y):
+        """
+        Check if a tile at grid coordinates is solid.
+        Returns True if the player cannot walk there.
+        """
+        #Check map boarders first
+        if grid_x < 0 or grid_y < 0:
+            return True
+        if grid_y >= len(self.grid):
+            return True
+        if grid_x >= len(self.grid[grid_y]):
+            return True
+        
+        #Check tile type
+        return self.grid[grid_y][grid_x] in SOLID_TILES
 
     def draw(self, screen):
         """Draw every tile in the grid onto the screen."""
