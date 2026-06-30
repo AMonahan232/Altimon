@@ -61,7 +61,7 @@ class Player:
 
         return False
 
-    def apply_bounderies(self, screen_width, screen_height):
+    def apply_boundaries(self, screen_width, screen_height):
         """Keep player inside screen boundaries."""
         if self.x < 0:
             self.x = 0
