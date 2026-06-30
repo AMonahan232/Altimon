@@ -74,7 +74,7 @@ while running:
     # Only allow movement when not in dialogue
     if not in_dialogue:
         keys = pygame.key.get_pressed()
-        player.handle_input(keys, tilemap)
+        player.handle_input(keys, tilemap, npcs=[mentor])
         player.apply_boundaries(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     # Draw everything

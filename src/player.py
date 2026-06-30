@@ -19,7 +19,7 @@ class Player:
             os.path.join("../assets/sprites/player.png")
         )
 
-    def handle_input(self, keys, tilemap):
+    def handle_input(self, keys, tilemap, npcs=None):
         """Move player based on input, respecting collision on all corners."""
         new_x = self.x
         new_y = self.y
@@ -33,13 +33,13 @@ class Player:
         if keys[pygame.K_DOWN]:
             new_y += self.speed
 
-        if not self.is_colliding(new_x, new_y, tilemap):
+        if not self.is_colliding(new_x, new_y, tilemap, npcs):
             self.x = new_x
         
-        if not self.is_colliding(new_x, new_y, tilemap):
+        if not self.is_colliding(new_x, new_y, tilemap, npcs):
             self.y = new_y
 
-    def is_colliding(self, new_x, new_y, tilemap):
+    def is_colliding(self, new_x, new_y, tilemap, npcs=None):
         """
         Check all four corners of the player against solid tiles.
         Returns True if any corner overlaps a solid tile.
@@ -59,6 +59,13 @@ class Player:
             if tilemap.is_solid(grid_x, grid_y):
                 return True
 
+        # Check collision against NPCs using their rects
+        if npcs:
+            player_rect = pygame.Rect(new_x, new_y, self.width, self.height)
+            for npc in npcs:
+                if player_rect.colliderect(npc.get_rect()):
+                    return True
+            
         return False
 
     def apply_boundaries(self, screen_width, screen_height):
